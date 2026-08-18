@@ -1,0 +1,31 @@
+# Payment Truth for WooCommerce
+
+> Payment Truth for WooCommerce is a free, read-only reconciliation plugin for stores using the official WooCommerce Stripe Gateway. It compares recent WooCommerce orders with their matching Stripe PaymentIntent or charge and reports status, gross amount, currency, refund-total, stale-pending, and missing-reference disagreements.
+
+Canonical product page: https://wordpress.org/plugins/payment-truth-for-woocommerce/
+
+Current version: 0.1.0
+
+## Core documentation
+
+- [Product overview](https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce/): Supported checks, compatibility, safety boundaries, and installation link.
+- [Frequently asked questions](https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce/faq/): Answers about supported gateways, Stripe access, privacy, timing, and what a finding proves.
+- [Public problem evidence](https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce/evidence/): Public WooCommerce Stripe reports that demonstrate the operational need for evidence-first reconciliation.
+- [Source code](https://github.com/moxianyu6975-cpu/payment-truth-for-woocommerce): GPL-2.0-or-later plugin source, tests, changelog, and issue tracker.
+- [WordPress.org support](https://wordpress.org/support/plugin/payment-truth-for-woocommerce/): Official support forum for the plugin.
+
+## Troubleshooting guides
+
+- [Stripe payment succeeded but the WooCommerce order is still pending](https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce/guides/stripe-payment-succeeded-woocommerce-order-pending/)
+- [How to reconcile WooCommerce orders with Stripe safely](https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce/guides/reconcile-woocommerce-stripe-payments-read-only/)
+- [WooCommerce says paid but Stripe reports a failed or cancelled payment](https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce/guides/woocommerce-paid-stripe-payment-failed/)
+- [WooCommerce and Stripe amount or currency mismatch](https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce/guides/woocommerce-stripe-amount-currency-mismatch/)
+- [WooCommerce and Stripe refund totals do not match](https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce/guides/woocommerce-stripe-refund-total-mismatch/)
+
+## Product boundaries
+
+- The plugin never captures, refunds, retries, replays webhooks, or changes an order.
+- A finding proves that two records disagreed when scanned; it does not prove a webhook failure or determine which record should change.
+- Version 0.1.0 supports the official WooCommerce Stripe Gateway and payment method IDs equal to `stripe` or beginning with `stripe_`.
+- Payment Truth uses the official gateway's existing Stripe connection and does not store another Stripe secret key.
+- Findings do not store customer names, addresses, email addresses, card data, or Stripe credentials.

@@ -1,0 +1,82 @@
+name: Notify IndexNow
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+
+permissions:
+  contents: read
+
+jobs:
+  submit:
+    name: Submit updated documentation URLs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for GitHub Pages deployment
+        env:
+          KEY_URL: https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce/35f42fa24e3bd1878b23f56de288837d.txt
+        run: |
+          sleep 75
+          for attempt in {1..12}; do
+            if [ "$(curl --fail --silent --show-error "$KEY_URL" || true)" = "35f42fa24e3bd1878b23f56de288837d" ]; then
+              exit 0
+            fi
+            sleep 15
+          done
+          echo "GitHub Pages did not publish the IndexNow key within three minutes." >&2
+          exit 1
+
+      - name: Submit sitemap URLs to IndexNow
+        env:
+          SITE_ROOT: https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce
+          INDEXNOW_KEY: 35f42fa24e3bd1878b23f56de288837d
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import time
+          import urllib.request
+          import xml.etree.ElementTree as ET
+
+          site_root = os.environ['SITE_ROOT'].rstrip('/')
+          key = os.environ['INDEXNOW_KEY']
+          sitemap_url = f'{site_root}/sitemap.xml'
+          key_location = f'{site_root}/{key}.txt'
+
+          sitemap = None
+          for attempt in range(6):
+              try:
+                  with urllib.request.urlopen(sitemap_url, timeout=30) as response:
+                      sitemap = response.read()
+                  break
+              except Exception:
+                  if attempt == 5:
+                      raise
+                  time.sleep(15)
+
+          namespace = {'s': 'http://www.sitemaps.org/schemas/sitemap/0.9'}
+          root = ET.fromstring(sitemap)
+          urls = [node.text for node in root.findall('s:url/s:loc', namespace) if node.text]
+          urls.append(f'{site_root}/llms.txt')
+
+          payload = json.dumps({
+              'host': 'moxianyu6975-cpu.github.io',
+              'key': key,
+              'keyLocation': key_location,
+              'urlList': sorted(set(urls)),
+          }).encode('utf-8')
+
+          request = urllib.request.Request(
+              'https://api.indexnow.org/IndexNow',
+              data=payload,
+              headers={'Content-Type': 'application/json; charset=utf-8'},
+              method='POST',
+          )
+          with urllib.request.urlopen(request, timeout=30) as response:
+              if response.status not in (200, 202):
+                  raise RuntimeError(f'IndexNow returned HTTP {response.status}')
+              print(f'IndexNow accepted {len(set(urls))} URLs with HTTP {response.status}.')
+          PY

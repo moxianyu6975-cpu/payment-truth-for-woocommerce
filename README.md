@@ -71,6 +71,8 @@ Payment Truth never asks you to enter a Stripe secret key.
 - [WooCommerce and Stripe amount or currency mismatch](https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce/guides/woocommerce-stripe-amount-currency-mismatch/)
 - [WooCommerce and Stripe refund totals do not match](https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce/guides/woocommerce-stripe-refund-total-mismatch/)
 - [Frequently asked questions](https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce/faq/)
+- [Public evidence for WooCommerce Stripe reconciliation](https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce/evidence/)
+- [Machine-readable product summary](https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce/llms.txt)
 
 ## Development
 

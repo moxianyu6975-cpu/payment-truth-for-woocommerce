@@ -43,12 +43,14 @@ These findings identify disagreements, not root causes. A finding does not prove
 - [WooCommerce and Stripe amount or currency mismatch](guides/woocommerce-stripe-amount-currency-mismatch/)
 - [WooCommerce and Stripe refund totals do not match](guides/woocommerce-stripe-refund-total-mismatch/)
 - [Frequently asked questions](faq/)
+- [Public evidence for WooCommerce Stripe reconciliation](evidence/)
 
 ## Official resources
 
 - [WordPress.org plugin page](https://wordpress.org/plugins/payment-truth-for-woocommerce/)
 - [Support forum](https://wordpress.org/support/plugin/payment-truth-for-woocommerce/)
 - [Source code](https://github.com/moxianyu6975-cpu/payment-truth-for-woocommerce)
+- [Machine-readable product summary](llms.txt)
 - [WooCommerce Stripe documentation](https://woocommerce.com/document/stripe/)
 - [Stripe PaymentIntent lifecycle](https://docs.stripe.com/payments/paymentintents/lifecycle)
 
