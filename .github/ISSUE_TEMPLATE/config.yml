@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: WordPress.org support forum
+    url: https://wordpress.org/support/plugin/payment-truth-for-woocommerce/
+    about: Ask installation, configuration, and usage questions here.
+  - name: Security report
+    url: https://github.com/moxianyu6975-cpu/payment-truth-for-woocommerce/security/advisories/new
+    about: Privately report a security vulnerability. Do not post exploit details publicly.

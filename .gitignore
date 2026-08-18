@@ -1,0 +1,11 @@
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.env
+.env.*
+*.log
+*.zip
+node_modules/
+vendor/
+.phpunit.result.cache

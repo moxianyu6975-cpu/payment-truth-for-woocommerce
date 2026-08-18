@@ -1,0 +1,48 @@
+name: Bug report
+description: Report reproducible incorrect behavior in Payment Truth.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include customer data, card data, API keys, webhook URLs, or credentials. Use the WordPress.org support forum for setup questions and SECURITY.md for vulnerabilities.
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: WordPress, WooCommerce, WooCommerce Stripe Gateway, Payment Truth, PHP, and HPOS status.
+      placeholder: "WordPress 7.x; WooCommerce 10.x; Stripe Gateway 10.x; Payment Truth 0.1.0; PHP 8.2; HPOS on"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Provide a minimal sequence that reproduces the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Redacted evidence
+      description: Include only sanitized logs, screenshots, or finding types needed to reproduce the issue.
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Privacy check
+      options:
+        - label: I removed customer data, payment credentials, webhook URLs, and other secrets.
+          required: true

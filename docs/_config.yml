@@ -1,0 +1,10 @@
+title: Payment Truth for WooCommerce
+description: Read-only WooCommerce Stripe reconciliation for payment status, amount, currency, and refund mismatches.
+url: https://moxianyu6975-cpu.github.io
+baseurl: /payment-truth-for-woocommerce
+theme: jekyll-theme-minimal
+logo: /payment-truth-for-woocommerce/assets/icon-256x256.png
+show_downloads: false
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
