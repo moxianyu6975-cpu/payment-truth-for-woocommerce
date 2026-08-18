@@ -28,4 +28,11 @@ php tests/test-package.php
 find . -name '*.php' -not -path './vendor/*' -print0 | xargs -0 -n1 php -l
 ```
 
+Run the WooCommerce and official Stripe Gateway integration suite with Node.js 20.18 or newer:
+
+```bash
+npx --yes @wp-playground/cli@3.1.50 run-blueprint --php 8.3 --wp latest --mount-dir "." "/wordpress/wp-content/plugins/payment-truth-for-woocommerce" --blueprint tests/playground-blueprint-hpos.json
+npx --yes @wp-playground/cli@3.1.50 run-blueprint --php 8.3 --wp latest --mount-dir "." "/wordpress/wp-content/plugins/payment-truth-for-woocommerce" --blueprint tests/playground-blueprint.json
+```
+
 Describe the behavior changed, why it changed, and how you verified it. Security vulnerabilities must follow [SECURITY.md](SECURITY.md) instead of a public issue.

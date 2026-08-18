@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['7.4', '8.3']
+        php: ["7.4", "8.3"]
     steps:
       - name: Check out source
         uses: actions/checkout@v4
@@ -35,3 +35,38 @@ jobs:
 
       - name: Run release-safety checks
         run: php tests/test-package.php
+
+  playground:
+    name: Playground / ${{ matrix.storage }} / PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - php: "7.4"
+            storage: HPOS
+            blueprint: tests/playground-blueprint-hpos.json
+          - php: "8.3"
+            storage: HPOS
+            blueprint: tests/playground-blueprint-hpos.json
+          - php: "8.3"
+            storage: Legacy
+            blueprint: tests/playground-blueprint.json
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Run WooCommerce and Stripe integration tests
+        run: >-
+          npx --yes @wp-playground/cli@3.1.50 run-blueprint
+          --php ${{ matrix.php }}
+          --wp latest
+          --mount-dir "." "/wordpress/wp-content/plugins/payment-truth-for-woocommerce"
+          --blueprint ${{ matrix.blueprint }}
+          --verbosity normal
