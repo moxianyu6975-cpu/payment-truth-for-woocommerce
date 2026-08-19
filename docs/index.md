@@ -11,7 +11,13 @@ permalink: /
 
 Payment Truth for WooCommerce compares recent orders created by the official WooCommerce Stripe Gateway with their matching Stripe PaymentIntent or charge. It reports evidence when payment status, gross amount, currency, or refunded totals disagree—without changing an order or moving money.
 
-[Install the free plugin from WordPress.org](https://wordpress.org/plugins/payment-truth-for-woocommerce/)
+[Install the free plugin from WordPress.org](https://wordpress.org/plugins/payment-truth-for-woocommerce/) · [Join the five-store validation](real-store-validation/) · [Share redacted scan feedback](https://github.com/moxianyu6975-cpu/payment-truth-for-woocommerce/issues/new?template=real_store_feedback.yml)
+
+## We are validating this with five real stores
+
+Payment Truth is public and tested, but product-market fit requires evidence from real store operations. If you use the official WooCommerce Stripe Gateway, run one ten-minute read-only scan and tell us whether the result was useful, confusing, empty, or errored. Healthy scans are useful feedback too.
+
+[See the real-store validation steps](real-store-validation/)
 
 ## What can it find?
 
@@ -44,6 +50,7 @@ These findings identify disagreements, not root causes. A finding does not prove
 - [WooCommerce and Stripe refund totals do not match](guides/woocommerce-stripe-refund-total-mismatch/)
 - [Frequently asked questions](faq/)
 - [Public evidence for WooCommerce Stripe reconciliation](evidence/)
+- [Real-store validation program](real-store-validation/)
 
 ## Official resources
 
