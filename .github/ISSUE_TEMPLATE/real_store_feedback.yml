@@ -1,0 +1,109 @@
+name: Real-store scan feedback
+description: Share a redacted result from one Payment Truth scan and help shape version 0.3.0.
+title: "[Pilot feedback]: "
+labels: ["pilot feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for testing Payment Truth on a real WooCommerce store. Feedback from healthy scans, empty scans, and scans with errors is useful too.
+
+        **Privacy:** do not include a store URL, customer data, order number, Stripe object ID, API key, webhook secret or URL, access token, or an unredacted screenshot or log.
+
+  - type: dropdown
+    id: role
+    attributes:
+      label: Your role
+      options:
+        - Store owner or manager
+        - Store developer or maintainer
+        - Agency supporting client stores
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: versions
+    attributes:
+      label: Software versions
+      description: WordPress, WooCommerce, official Stripe Gateway, Payment Truth, and PHP versions. Also state whether HPOS is enabled.
+      placeholder: "WordPress 7.0; WooCommerce 11.0; Stripe Gateway 10.8; Payment Truth 0.2.0; PHP 8.3; HPOS enabled"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Stripe mode used for this scan
+      options:
+        - Test mode
+        - Live mode
+        - Both in separate scans
+        - Not sure
+    validations:
+      required: true
+
+  - type: dropdown
+    id: scan_outcome
+    attributes:
+      label: Scan outcome
+      options:
+        - Healthy scan, no mismatch found
+        - One or more mismatches found
+        - Provider read errors shown
+        - No supported recent orders found
+        - Scan did not complete
+        - Not sure how to interpret the result
+    validations:
+      required: true
+
+  - type: input
+    id: scan_counts
+    attributes:
+      label: Approximate scan-health counts
+      description: Share only the counts shown for supported orders, provider reads, provider errors, and findings. Do not include identifiers.
+      placeholder: "Supported orders: 12; provider reads: 12; provider errors: 0; findings: 1"
+
+  - type: checkboxes
+    id: finding_types
+    attributes:
+      label: Finding categories seen
+      description: Leave all unchecked when no finding was reported.
+      options:
+        - label: Stripe succeeded while WooCommerce remained unpaid
+        - label: WooCommerce said paid while Stripe reported a terminal failure
+        - label: Amount mismatch
+        - label: Currency mismatch
+        - label: Refund-total mismatch
+        - label: Stale pending order
+        - label: Missing Stripe reference
+
+  - type: textarea
+    id: useful
+    attributes:
+      label: What was useful?
+      description: Tell us what helped you understand or investigate the store state.
+
+  - type: textarea
+    id: confusing
+    attributes:
+      label: What was confusing or blocked you?
+      description: Include reproducible steps when something did not work, but keep all evidence redacted.
+
+  - type: textarea
+    id: next_need
+    attributes:
+      label: What one improvement would save you the most time?
+      description: Describe the operational job, not just a feature name.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Final checks
+      options:
+        - label: I removed store, customer, order, payment, credential, webhook, and other sensitive identifiers.
+          required: true
+        - label: Maintainers may ask follow-up questions in this public GitHub issue.
+          required: true

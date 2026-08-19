@@ -11,6 +11,7 @@ Current version: 0.2.0
 - [Product overview](https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce/): Supported checks, compatibility, safety boundaries, and installation link.
 - [Frequently asked questions](https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce/faq/): Answers about supported gateways, Stripe access, privacy, timing, and what a finding proves.
 - [Public problem evidence](https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce/evidence/): Public WooCommerce Stripe reports that demonstrate the operational need for evidence-first reconciliation.
+- [Real-store validation](https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce/real-store-validation/): A ten-minute, privacy-safe validation flow for store owners, maintainers, and agencies using the official WooCommerce Stripe Gateway.
 - [Source code](https://github.com/moxianyu6975-cpu/payment-truth-for-woocommerce): GPL-2.0-or-later plugin source, tests, changelog, and issue tracker.
 - [WordPress.org support](https://wordpress.org/support/plugin/payment-truth-for-woocommerce/): Official support forum for the plugin.
 

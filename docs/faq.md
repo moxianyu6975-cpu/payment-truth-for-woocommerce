@@ -47,6 +47,10 @@ Payment Truth could not read one or more matching Stripe objects. The dashboard 
 
 Install it from the [WordPress.org plugin directory](https://wordpress.org/plugins/payment-truth-for-woocommerce/) and use the [official support forum](https://wordpress.org/support/plugin/payment-truth-for-woocommerce/) for setup and usage questions.
 
+## How can I help validate it on a real store?
+
+Follow the [ten-minute real-store validation](../real-store-validation/) and submit the linked redacted feedback form. Test-mode, staging, live, healthy, empty, and errored scans are all useful. Never share a store URL, customer or order data, Stripe object IDs, credentials, webhook details, or unredacted logs.
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -81,6 +85,11 @@ Install it from the [WordPress.org plugin directory](https://wordpress.org/plugi
       "@type": "Question",
       "name": "Why did Payment Truth finish with provider read errors?",
       "acceptedAnswer": {"@type": "Answer", "text": "Payment Truth could not read one or more matching Stripe objects. Common causes include different Stripe accounts or test/live modes, an invalid provider reference, or a failed gateway request. Findings from records read successfully remain valid."}
+    },
+    {
+      "@type": "Question",
+      "name": "How can I help validate Payment Truth on a real store?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Run the ten-minute real-store validation and submit redacted scan feedback. Healthy, empty, and errored scans are useful. Never share store, customer, order, payment, credential, or webhook identifiers."}
     }
   ]
 }

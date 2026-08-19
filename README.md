@@ -11,7 +11,11 @@
 
 **Payment Truth for WooCommerce** is a read-only reconciliation plugin for stores using the official WooCommerce Stripe Gateway. It compares recent WooCommerce orders with the matching Stripe PaymentIntent or charge and reports evidence when payment records disagree.
 
-[Install from WordPress.org](https://wordpress.org/plugins/payment-truth-for-woocommerce/) · [Read the guides](https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce/) · [Get support](https://wordpress.org/support/plugin/payment-truth-for-woocommerce/)
+[Install from WordPress.org](https://wordpress.org/plugins/payment-truth-for-woocommerce/) · [Join the five-store validation](https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce/real-store-validation/) · [Read the guides](https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce/) · [Get support](https://wordpress.org/support/plugin/payment-truth-for-woocommerce/)
+
+## Help validate it on a real store
+
+We are looking for five WooCommerce store owners, maintainers, or agencies using the official Stripe Gateway. Run one ten-minute read-only scan and [share a redacted result](https://github.com/moxianyu6975-cpu/payment-truth-for-woocommerce/issues/new?template=real_store_feedback.yml). Healthy scans, empty scans, and scans with provider errors are all useful. Never post store, customer, order, payment, credential, or webhook identifiers.
 
 ## What it detects
 
@@ -73,6 +77,7 @@ Payment Truth never asks you to enter a Stripe secret key.
 - [WooCommerce and Stripe refund totals do not match](https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce/guides/woocommerce-stripe-refund-total-mismatch/)
 - [Frequently asked questions](https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce/faq/)
 - [Public evidence for WooCommerce Stripe reconciliation](https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce/evidence/)
+- [Real-store validation program](https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce/real-store-validation/)
 - [Machine-readable product summary](https://moxianyu6975-cpu.github.io/payment-truth-for-woocommerce/llms.txt)
 
 ## Development
