@@ -211,6 +211,43 @@ $assert( 6 === (int) $fourth['findings_resolved'], 'Expected all six provider-ba
 $assert( 2 === $summary['open'], 'Only the two missing-reference findings should remain open.' );
 $assert( 7 === $summary['resolved'], 'Expected seven resolved findings in total.' );
 
+$admin_repository = new PTWC_Repository();
+$admin_provider   = new PTWC_Stripe_Provider();
+$admin_notifier   = new PTWC_Notifier();
+$admin_scanner    = new PTWC_Scanner( $admin_repository, new PTWC_Reconciler(), $admin_provider, $admin_notifier );
+$admin            = new PTWC_Admin( $admin_repository, $admin_scanner, $admin_provider, $admin_notifier );
+
+wp_set_current_user( 1 );
+$_GET['tab'] = 'findings';
+
+update_option( PTWC_Scanner::LAST_SCAN_KEY, $fourth, false );
+ob_start();
+$admin->render_page();
+$healthy_admin_html = ob_get_clean();
+$assert( false !== strpos( $healthy_admin_html, 'Scan completed without provider read errors.' ), 'Healthy scan guidance was not rendered.' );
+
+$diagnostic_report           = $fourth;
+$diagnostic_report['errors'] = array(
+	'provider_response_invalid' => 2,
+	'provider_request_failed'   => 1,
+	'scan_failed',
+	array( 'corrupt-option-value' ),
+);
+update_option( PTWC_Scanner::LAST_SCAN_KEY, $diagnostic_report, false );
+ob_start();
+$admin->render_page();
+$diagnostic_admin_html = ob_get_clean();
+$assert( false !== strpos( $diagnostic_admin_html, 'Last scan completed with 4 errors.' ), 'Counted and legacy scan errors were not normalized.' );
+$assert( false !== strpos( $diagnostic_admin_html, 'same Stripe account and the same test/live mode' ), 'Provider response guidance was not rendered.' );
+$assert( false !== strpos( $diagnostic_admin_html, 'Findings from records that were read successfully remain valid.' ), 'Partial-scan safety guidance was not rendered.' );
+
+update_option( PTWC_Scanner::LAST_SCAN_KEY, 'corrupt-option-value', false );
+ob_start();
+$admin->render_page();
+$first_scan_admin_html = ob_get_clean();
+$assert( false !== strpos( $first_scan_admin_html, 'Before your first scan' ), 'First-scan readiness guidance was not rendered.' );
+update_option( PTWC_Scanner::LAST_SCAN_KEY, $fourth, false );
+
 $settings = PTWC_Installer::get_settings();
 $assert( empty( $settings['email_enabled'] ), 'Email must be disabled by default.' );
 $assert( 'none' === $settings['webhook_channel'], 'Webhook must be disabled by default.' );

@@ -63,6 +63,20 @@
 	margin: 18px 0;
 }
 
+.ptwc-scan-health {
+	margin: 0 0 18px;
+	max-width: 920px;
+}
+
+.ptwc-scan-health ol,
+.ptwc-scan-health ul {
+	margin-left: 24px;
+}
+
+.ptwc-scan-health li {
+	margin-bottom: 6px;
+}
+
 .ptwc-filters {
 	display: flex;
 	gap: 8px;

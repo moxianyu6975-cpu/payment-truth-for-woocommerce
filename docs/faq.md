@@ -17,7 +17,7 @@ No. A finding proves only that the WooCommerce and Stripe records disagreed when
 
 ## Does the plugin change orders or move money?
 
-No. Version 0.1.0 is deliberately read-only. It never captures, refunds, retries, replays webhooks, or changes an order status.
+No. Version 0.2.0 is deliberately read-only. It never captures, refunds, retries, replays webhooks, or changes an order status.
 
 ## Does it need my Stripe secret key?
 
@@ -38,6 +38,10 @@ The findings table stores normalized reconciliation evidence such as order ID, p
 ## Why is a status mismatch not shown immediately?
 
 Payment updates are asynchronous. Payment Truth waits five minutes before reporting status disagreements and scans hourly by default. Administrators can also run a bounded manual scan.
+
+## Why did the scan finish with provider read errors?
+
+Payment Truth could not read one or more matching Stripe objects. The dashboard explains the likely cause and next step. Common causes include an order and gateway connection using different Stripe accounts or test/live modes, a deleted or invalid provider reference, or a failed gateway request. Findings from records read successfully remain valid.
 
 ## Where can I install it or ask for help?
 
@@ -71,7 +75,12 @@ Install it from the [WordPress.org plugin directory](https://wordpress.org/plugi
     {
       "@type": "Question",
       "name": "Which Stripe plugin does Payment Truth support?",
-      "acceptedAnswer": {"@type": "Answer", "text": "Version 0.1.0 supports the official WooCommerce Stripe Gateway and payment method IDs equal to stripe or beginning with stripe_."}
+      "acceptedAnswer": {"@type": "Answer", "text": "Version 0.2.0 supports the official WooCommerce Stripe Gateway and payment method IDs equal to stripe or beginning with stripe_."}
+    },
+    {
+      "@type": "Question",
+      "name": "Why did Payment Truth finish with provider read errors?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Payment Truth could not read one or more matching Stripe objects. Common causes include different Stripe accounts or test/live modes, an invalid provider reference, or a failed gateway request. Findings from records read successfully remain valid."}
     }
   ]
 }

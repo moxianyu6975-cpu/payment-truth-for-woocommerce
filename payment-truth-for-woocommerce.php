@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Payment Truth for WooCommerce
  * Description: Reconciles WooCommerce orders with Stripe and reports payment status, amount, and currency mismatches before they become lost revenue.
- * Version:     0.1.0
+ * Version:     0.2.0
  * Author:      PluginMosaic
  * Author URI:  https://profiles.wordpress.org/pluginmosaic/
  * License:     GPL-2.0-or-later
@@ -20,7 +20,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'PTWC_VERSION', '0.1.0' );
+define( 'PTWC_VERSION', '0.2.0' );
 define( 'PTWC_DB_VERSION', '1' );
 define( 'PTWC_FILE', __FILE__ );
 define( 'PTWC_PATH', plugin_dir_path( __FILE__ ) );
