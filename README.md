@@ -30,6 +30,7 @@
 - **No customer PII in findings:** stores normalized payment evidence, not customer identity or card data.
 - **Reduced false positives:** waits five minutes before reporting status disagreements.
 - **Bounded scans:** configurable lookback and maximum-order limits for hourly and manual scans.
+- **Actionable scan health:** explains provider read errors, account or mode mismatches, and the next investigation step.
 - **Opt-in alerts:** email, Feishu/Lark, DingTalk, and WeCom alerts are disabled by default.
 - **HPOS compatible:** reads orders through WooCommerce CRUD APIs.
 
@@ -44,7 +45,7 @@ A finding proves that the two records disagreed when scanned. It does **not** pr
 | PHP | 7.4 or later |
 | Stripe gateway | Official WooCommerce Stripe Gateway |
 
-Version `0.1.0` supports payment methods whose IDs are `stripe` or begin with `stripe_`. Other Stripe extensions may store different identifiers and are not queried.
+Version `0.2.0` supports payment methods whose IDs are `stripe` or begin with `stripe_`. Other Stripe extensions may store different identifiers and are not queried.
 
 ## Installation
 

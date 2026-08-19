@@ -4,7 +4,7 @@ Tags: woocommerce, stripe, payments, refunds, orders
 Requires at least: 6.4
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 0.1.0
+Stable tag: 0.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,6 +45,7 @@ A finding means that the two records disagree. It does not by itself prove that 
 * No customer PII stored in the findings table.
 * Five-minute grace period reduces false positives during normal asynchronous updates.
 * Bounded hourly scans and a manual scan button.
+* Actionable scan health explains provider read errors and the next investigation step.
 * Email, Feishu/Lark, DingTalk, and WeCom alerts are opt-in and fire only for newly opened findings.
 * Compatible with WooCommerce High-Performance Order Storage (HPOS).
 
@@ -71,7 +72,7 @@ No. A finding proves only that the WooCommerce and Stripe records disagree when 
 
 = Does the plugin change order statuses or move money? =
 
-No. Version 0.1.0 is deliberately read-only. It reports evidence and links to the order so a store operator can investigate.
+No. Version 0.2.0 is deliberately read-only. It reports evidence and links to the order so a store operator can investigate.
 
 = Does Payment Truth require another Stripe secret key? =
 
@@ -100,6 +101,10 @@ Payment updates are asynchronous. Payment Truth waits five minutes before report
 = Which orders are scanned? =
 
 Only recent orders that use a supported official Stripe payment method are scanned. The lookback period and maximum orders per scan are configurable, keeping scheduled and manual scans bounded.
+
+= Why did the scan finish with provider read errors? =
+
+Payment Truth could not read one or more matching Stripe objects. The dashboard now explains the likely cause and next step. Common causes include an order and gateway connection using different Stripe accounts or test/live modes, a deleted or invalid provider reference, or a failed gateway request. Findings from records read successfully remain valid.
 
 = Does it work with HPOS? =
 
@@ -149,6 +154,12 @@ Email and team-webhook alerts are disabled by default. Findings and settings rem
 3. Bounded scan and opt-in alert settings.
 
 == Changelog ==
+
+= 0.2.0 =
+
+* Add actionable scan-health guidance for provider read failures, account or mode mismatches, and first-scan setup.
+* Distinguish a healthy scan from an empty scan or a scan with no readable Stripe references.
+* Keep all reconciliation behavior read-only.
 
 = 0.1.0 =
 

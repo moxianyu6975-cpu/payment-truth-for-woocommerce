@@ -61,7 +61,7 @@ These findings identify disagreements, not root causes. A finding does not prove
   "name": "Payment Truth for WooCommerce",
   "applicationCategory": "BusinessApplication",
   "operatingSystem": "WordPress",
-  "softwareVersion": "0.1.0",
+  "softwareVersion": "0.2.0",
   "description": "Read-only WooCommerce Stripe reconciliation for payment status, amount, currency, and refund mismatches.",
   "url": "https://wordpress.org/plugins/payment-truth-for-woocommerce/",
   "downloadUrl": "https://wordpress.org/plugins/payment-truth-for-woocommerce/",

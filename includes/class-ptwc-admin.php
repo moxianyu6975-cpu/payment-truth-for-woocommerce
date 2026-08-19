@@ -275,6 +275,9 @@ final class PTWC_Admin {
 	private function render_findings() {
 		$summary = $this->repository->summary();
 		$last    = get_option( PTWC_Scanner::LAST_SCAN_KEY, array() );
+		if ( ! is_array( $last ) ) {
+			$last = array();
+		}
 		?>
 		<div class="ptwc-cards">
 			<?php $this->metric_card( __( 'Open critical', 'payment-truth-for-woocommerce' ), $summary['open_critical'], 'critical' ); ?>
@@ -311,8 +314,142 @@ final class PTWC_Admin {
 			?>
 		</p>
 
+		<?php $this->render_scan_health( $last ); ?>
+
 		<?php $this->render_findings_table(); ?>
 		<?php
+	}
+
+	/**
+	 * Explain whether the last scan was able to read Stripe records.
+	 *
+	 * @param array<string,mixed> $last Last scan report.
+	 * @return void
+	 */
+	private function render_scan_health( array $last ) {
+		if ( empty( $last['finished_gmt'] ) ) {
+			?>
+			<div class="notice notice-info inline ptwc-scan-health">
+				<p><strong><?php esc_html_e( 'Before your first scan', 'payment-truth-for-woocommerce' ); ?></strong></p>
+				<ol>
+					<li><?php esc_html_e( 'Connect the official WooCommerce Stripe Gateway to the same Stripe account and test/live mode used by your recent orders.', 'payment-truth-for-woocommerce' ); ?></li>
+					<li><?php esc_html_e( 'Run a manual scan. Payment Truth uses the gateway connection and never asks for another Stripe key.', 'payment-truth-for-woocommerce' ); ?></li>
+				</ol>
+			</div>
+			<?php
+			return;
+		}
+
+		$errors = $this->normalize_scan_errors( isset( $last['errors'] ) && is_array( $last['errors'] ) ? $last['errors'] : array() );
+		if ( $errors ) {
+			$total = array_sum( $errors );
+			?>
+			<div class="notice notice-warning inline ptwc-scan-health">
+				<p>
+					<strong>
+						<?php
+						echo esc_html(
+							sprintf(
+								/* translators: %d: number of scan errors. */
+								_n( 'Last scan completed with %d error.', 'Last scan completed with %d errors.', $total, 'payment-truth-for-woocommerce' ),
+								$total
+							)
+						);
+						?>
+					</strong>
+					<?php esc_html_e( 'Findings from records that were read successfully remain valid.', 'payment-truth-for-woocommerce' ); ?>
+				</p>
+				<ul>
+					<?php foreach ( $errors as $code => $count ) : ?>
+						<li>
+							<?php echo esc_html( $this->scan_error_message( $code ) ); ?>
+							<?php
+							echo esc_html(
+								sprintf(
+									/* translators: %d: number of affected orders or scan attempts. */
+									_n( '(%d occurrence)', '(%d occurrences)', $count, 'payment-truth-for-woocommerce' ),
+									$count
+								)
+							);
+							?>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+				<p><strong><?php esc_html_e( 'Next step:', 'payment-truth-for-woocommerce' ); ?></strong> <?php esc_html_e( 'Check the affected order notes and WooCommerce logs, confirm the Stripe account and test/live mode, then run the scan again.', 'payment-truth-for-woocommerce' ); ?></p>
+			</div>
+			<?php
+			return;
+		}
+
+		$orders = isset( $last['orders_scanned'] ) ? absint( $last['orders_scanned'] ) : 0;
+		$reads  = isset( $last['provider_reads'] ) ? absint( $last['provider_reads'] ) : 0;
+		if ( 0 === $orders ) {
+			?>
+			<div class="notice notice-info inline ptwc-scan-health"><p><strong><?php esc_html_e( 'Scan completed.', 'payment-truth-for-woocommerce' ); ?></strong> <?php esc_html_e( 'No recent supported Stripe orders were found. This is not an error; wait for a Stripe order or increase the lookback window in Settings.', 'payment-truth-for-woocommerce' ); ?></p></div>
+			<?php
+			return;
+		}
+
+		if ( 0 === $reads ) {
+			?>
+			<div class="notice notice-info inline ptwc-scan-health"><p><strong><?php esc_html_e( 'Scan completed without provider read errors.', 'payment-truth-for-woocommerce' ); ?></strong> <?php esc_html_e( 'No Stripe records were read. Review any missing-reference findings; supported orders need a usable PaymentIntent or charge ID.', 'payment-truth-for-woocommerce' ); ?></p></div>
+			<?php
+			return;
+		}
+
+		?>
+		<div class="notice notice-success inline ptwc-scan-health"><p><strong><?php esc_html_e( 'Scan completed without provider read errors.', 'payment-truth-for-woocommerce' ); ?></strong> <?php esc_html_e( 'The Stripe connection returned usable payment records.', 'payment-truth-for-woocommerce' ); ?></p></div>
+		<?php
+	}
+
+	/**
+	 * Convert legacy list-style and counted scan errors into one counted map.
+	 *
+	 * @param array<mixed> $errors Stored scan errors.
+	 * @return array<string,int>
+	 */
+	private function normalize_scan_errors( array $errors ) {
+		$normalized = array();
+
+		foreach ( $errors as $key => $value ) {
+			if ( is_int( $key ) && ! is_scalar( $value ) ) {
+				continue;
+			}
+
+			$code  = is_int( $key ) ? sanitize_key( (string) $value ) : sanitize_key( (string) $key );
+			$count = is_int( $key ) || ! is_numeric( $value ) ? 1 : max( 1, absint( $value ) );
+			if ( ! $code ) {
+				continue;
+			}
+
+			$normalized[ $code ] = isset( $normalized[ $code ] ) ? $normalized[ $code ] + $count : $count;
+		}
+
+		return $normalized;
+	}
+
+	/**
+	 * Turn an internal scan error key into an actionable explanation.
+	 *
+	 * @param string $code Error key.
+	 * @return string
+	 */
+	private function scan_error_message( $code ) {
+		switch ( $code ) {
+			case 'stripe_gateway_unavailable':
+				return __( 'The official WooCommerce Stripe Gateway API was unavailable. Activate or update the gateway before scanning again.', 'payment-truth-for-woocommerce' );
+			case 'missing_reference':
+				return __( 'The order has no usable Stripe PaymentIntent or charge ID. Review its order notes and gateway metadata.', 'payment-truth-for-woocommerce' );
+			case 'provider_request_failed':
+			case 'provider_exception':
+				return __( 'Stripe rejected or could not complete the read request. Reconnect the official Stripe gateway and check WooCommerce logs.', 'payment-truth-for-woocommerce' );
+			case 'provider_response_invalid':
+				return __( 'Stripe did not return a usable payment object. Confirm the order and gateway connection use the same Stripe account and the same test/live mode.', 'payment-truth-for-woocommerce' );
+			case 'scan_failed':
+				return __( 'The scan stopped unexpectedly. Check WooCommerce logs, then run it again.', 'payment-truth-for-woocommerce' );
+			default:
+				return __( 'A Stripe payment record could not be read. Check WooCommerce logs and the gateway connection before scanning again.', 'payment-truth-for-woocommerce' );
+		}
 	}
 
 	/**

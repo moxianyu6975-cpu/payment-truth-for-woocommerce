@@ -4,7 +4,7 @@
 
 Canonical product page: https://wordpress.org/plugins/payment-truth-for-woocommerce/
 
-Current version: 0.1.0
+Current version: 0.2.0
 
 ## Core documentation
 
@@ -26,6 +26,6 @@ Current version: 0.1.0
 
 - The plugin never captures, refunds, retries, replays webhooks, or changes an order.
 - A finding proves that two records disagreed when scanned; it does not prove a webhook failure or determine which record should change.
-- Version 0.1.0 supports the official WooCommerce Stripe Gateway and payment method IDs equal to `stripe` or beginning with `stripe_`.
+- Version 0.2.0 supports the official WooCommerce Stripe Gateway and payment method IDs equal to `stripe` or beginning with `stripe_`.
 - Payment Truth uses the official gateway's existing Stripe connection and does not store another Stripe secret key.
 - Findings do not store customer names, addresses, email addresses, card data, or Stripe credentials.
