@@ -43,6 +43,7 @@ These findings identify disagreements, not root causes. A finding does not prove
 
 ## Evidence-first troubleshooting guides
 
+- [Engineering case study: why Payment Truth is read-only](engineering/read-only-reconciliation/)
 - [Stripe payment succeeded but the WooCommerce order is still pending](guides/stripe-payment-succeeded-woocommerce-order-pending/)
 - [How to reconcile WooCommerce orders with Stripe safely](guides/reconcile-woocommerce-stripe-payments-read-only/)
 - [WooCommerce says paid but Stripe reports a failed or cancelled payment](guides/woocommerce-paid-stripe-payment-failed/)
